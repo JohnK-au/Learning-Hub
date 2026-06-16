@@ -11,6 +11,9 @@ build/
 *.local
 .eslintcache
 
+# TypeScript incremental build info
+*.tsbuildinfo
+
 # Logs
 logs/
 *.log

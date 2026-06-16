@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/*
+  Theme tokens — the single source of truth for color & surface.
+  Tailwind v4 generates utilities from these (e.g. --color-surface -> bg-surface,
+  text-surface, border-surface). Components reference tokens, never raw hex.
+*/
+@theme {
+  --color-bg: #0b0f1a;
+  --color-surface: #121826;
+  --color-surface-raised: #1a2235;
+  --color-border: #26304a;
+  --color-text: #e8edf7;
+  --color-muted: #9aa6c0;
+  --color-faint: #66718c;
+
+  --color-accent: #7c9cff;
+  --color-accent-strong: #5b7cff;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  --radius-card: 1rem;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Respect reduced-motion preferences globally. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
