@@ -40,6 +40,38 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Minimal Markdown styling (Tailwind's reset strips defaults). */
+.markdown strong {
+  font-weight: 600;
+}
+.markdown em {
+  font-style: italic;
+}
+.markdown ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.markdown ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.markdown a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.markdown code {
+  font-family: ui-monospace, monospace;
+  background: var(--color-surface-raised);
+  padding: 0.1em 0.3em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+.markdown p + p,
+.markdown ul,
+.markdown ol {
+  margin-top: 0.75rem;
+}
+
 /* Respect reduced-motion preferences globally. */
 @media (prefers-reduced-motion: reduce) {
   *,
