@@ -54,51 +54,29 @@ export class LocalStorageStore implements ProgressStore {
     };
   }
 
-  // --- YOUR TURN ---------------------------------------------------------
-  //
-  // Implement the three methods the interface still requires. Use the private
-  // helpers above (`persist`, `notify`) — don't duplicate their logic.
-  //
-  // 1. update(mutate): apply `mutate` to the current state to get the NEXT
-  //    state, store it, persist it, then notify listeners.
-  //    Why "next" must be a new object: React (Stage 4) detects changes by
-  //    object identity, so mutating in place would render nothing.
-  //
-  //    update(mutate: (state: ProgressState) => ProgressState): void { ... }
-
+  /** Replace state via a pure mutator, then persist and notify subscribers. */
   update(mutate: (state: ProgressState) => ProgressState): void {
     const result = mutate(this.state);
     this.state = result;
     this.persist();
-    this.notify()
+    this.notify();
   }
 
-  //
-  // 2. exportJSON(): return the state as a pretty JSON string (2-space indent).
-  //
-  //    exportJSON(): string { ... }
-
+  /** Serialize the full state as a pretty JSON string for backup. */
   exportJSON(): string {
-    return JSON.stringify(this.state, null, 2)
+    return JSON.stringify(this.state, null, 2);
   }
 
-  //
-  // 3. importJSON(json): parse the string, VALIDATE it with
-  //    progressStateSchema (reuse it — don't trust backup files), and on
-  //    success replace state + persist + notify. On failure, throw an Error
-  //    with a clear message. (Hint: JSON.parse can throw too.)
-  //
-  //    importJSON(json: string): void { ... }
-
+  /** Replace state from a validated backup string; throws if it doesn't match. */
   importJSON(json: string): void {
-    const parsed = JSON.parse(json)
-    const check = progressStateSchema.safeParse(parsed)
+    const parsed = JSON.parse(json);
+    const check = progressStateSchema.safeParse(parsed);
     if (!check.success) {
-      throw new Error("This state is not a valid schema")
+      throw new Error("Invalid progress backup: does not match the expected shape.");
     }
     this.state = check.data;
     this.persist();
-    this.notify()
+    this.notify();
   }
 }
 

@@ -1,16 +1,13 @@
 import { z } from "zod";
 
 /**
- * PERSISTED PROGRESS — shape + the store abstraction.
+ * Persisted progress: the state shape plus the store abstraction.
  *
- * This file defines WHAT progress looks like and the INTERFACE for reading and
- * writing it — but not HOW it is stored. The concrete storage (localStorage)
- * lives in LocalStorageStore.ts and is the only file that knows about the
- * browser. Everything else in the app depends on the `ProgressStore` interface.
- *
- * That is the Dependency Inversion Principle: high-level code depends on an
- * abstraction, not a detail. Swapping localStorage for a hosted backend later
- * means writing one new class that implements this interface — no app changes.
+ * Defines what progress looks like and the interface for reading/writing it —
+ * but not how it is stored. The concrete storage (localStorage) lives in
+ * LocalStorageStore.ts; everything else depends only on the `ProgressStore`
+ * interface, so the storage backend can be swapped without app changes
+ * (Dependency Inversion).
  */
 
 /* --- The persisted state shape (validated on load, so old/corrupt data can't

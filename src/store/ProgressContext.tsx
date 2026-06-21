@@ -8,7 +8,7 @@ import type { ProgressStore } from "@/store/ProgressStore.ts";
  * Components ask for "the store" through context rather than importing the
  * concrete singleton, so a different implementation (e.g. a fake store in a
  * test, or a future SupabaseStore) can be injected at the provider without any
- * component changing. Same Dependency Inversion idea as Stage 3, now for React.
+ * component changing.
  */
 const ProgressStoreContext = createContext<ProgressStore>(progressStore);
 
