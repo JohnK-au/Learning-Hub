@@ -47,4 +47,4 @@ Idle minutes usually go to social media. Learning Hub aims to make the path of l
 
 ## A note on this repo
 
-This project doubles as a hands-on software-engineering exercise. The foundational stages are built as guided practice — each demonstrates a core principle (single source of truth, SOLID, DRY, the Open/Closed Principle, pure functions) exactly where the codebase uses it. Stage-by-stage notes live in `docs/build-journal/`.
+This project doubles as a hands-on software-engineering exercise. The foundational stages are built as guided practice — each demonstrates a core principle (single source of truth, SOLID, DRY, the Open/Closed Principle, pure functions) exactly where the codebase uses it. The guided build steps, conventions, and concept glossary live in [docs/FLIGHT_GUIDE.md](docs/FLIGHT_GUIDE.md) (reference answers in [docs/SOLUTIONS.md](docs/SOLUTIONS.md)).
