@@ -4,6 +4,29 @@ Everything you need is on this machine: dependencies installed, app runs,
 teaching is written into the files. **No internet required.** This is your
 single reference — start here, come back whenever you're lost.
 
+## 0. Pre-flight checklist (do this the night before, WITH internet)
+
+- [ ] `npm run test:run && npm run typecheck && npm run lint && npm run build`
+      — all green (last verified green at handoff).
+- [ ] `npm run dev`, open http://localhost:5173, click around once — this
+      also warms Vite's dependency cache so first offline start is instant.
+- [ ] **VS Code extensions** (can't install offline): Prettier, ESLint,
+      Tailwind CSS, Vitest — VS Code will suggest them when you open the
+      folder (`.vscode/extensions.json`). With Prettier installed you get
+      format-on-save; without it, run `npm run format` now and then.
+- [ ] Don't run `npm install`/`npm update` on the plane. If `node_modules`
+      somehow breaks mid-flight, recovery IS possible offline:
+      `rm -rf node_modules && npm ci --offline` (the npm cache on this
+      machine has everything — verified).
+- [ ] Charge the laptop. ✈️
+
+**Your two offline references:**
+
+- This guide — workflow, map, build order, glossary, troubleshooting.
+- `docs/SYNTAX_CHEATSHEET.md` — the offline MDN: every JS/TS syntax tool the
+  TODOs need, with examples in this codebase's style. When the question is
+  "how do I write that in JavaScript?", it's there.
+
 **The loop for every step:**
 
 1. Open the file named in the step — read its `YOUR TURN` comment (the
