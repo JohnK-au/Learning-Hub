@@ -25,7 +25,16 @@ export function useProgress(): {
   );
   const getSnapshot = useCallback(() => store.getState(), [store]);
 
+  // `update` must be wrapped too — returning the bare `store.update` would
+  // detach the method from its object, so `this` inside it becomes undefined
+  // when a component calls the destructured function. The arrow call below
+  // keeps `store.` in front of the call, which is what preserves `this`.
+  const update = useCallback(
+    (mutate: (state: ProgressState) => ProgressState) => store.update(mutate),
+    [store],
+  );
+
   const state = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
-  return { state, update: store.update };
+  return { state, update };
 }
