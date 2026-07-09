@@ -54,4 +54,22 @@ describe("LocalStorageStore", () => {
     const store = new LocalStorageStore();
     expect(store.getState().streak.current).toBe(0);
   });
+
+  it("migrates a version-1 save instead of wiping it", () => {
+    // A realistic v1 payload: no `preferences` field, version: 1.
+    const v1 = {
+      version: 1,
+      streak: { current: 12, longest: 12, lastActiveDate: "2026-07-01" },
+      history: [],
+      tracks: {},
+      drills: {},
+      reviews: {},
+    };
+    localStorage.setItem("learning-hub:progress", JSON.stringify(v1));
+
+    const store = new LocalStorageStore();
+    // The streak SURVIVES the schema change — that's the whole point.
+    expect(store.getState().streak.current).toBe(12);
+    expect(store.getState().version).toBe(2);
+  });
 });

@@ -118,3 +118,31 @@ export function nextDrillLevel(currentLevel: number, score: number): number {
   void score;
   throw new Error("TODO: implement nextDrillLevel (YOUR TURN #2)");
 }
+
+/* ------------------------------------------------------------------------ *
+ * YOUR TURN #6 — trackCompletionSummary
+ * ------------------------------------------------------------------------ *
+ * The topic page shows "7 / 12 lessons" per track. Return
+ * `{ completed, total }` for a track:
+ *
+ *   - total: count EVERY lesson in every module of the track
+ *   - completed: how many of those lesson ids appear in
+ *     progress.tracks[track.id]?.completedLessonIds
+ *
+ * Careful with `completed`: count only ids that belong to THIS track's
+ * lessons (the same Set trick as the worked example works here — build the
+ * Set from completedLessonIds, then count lessons whose id it `has`). Don't
+ * just read the array's length: a stale id that's no longer in the track
+ * shouldn't count toward "7 / 12".
+ *
+ * Verify: unskip `describe.skip("trackCompletionSummary", ...)` in
+ * selection.test.ts.
+ */
+export function trackCompletionSummary(
+  track: Track,
+  progress: ProgressState,
+): { completed: number; total: number } {
+  void track;
+  void progress;
+  throw new Error("TODO: implement trackCompletionSummary (YOUR TURN #6)");
+}

@@ -3,6 +3,7 @@ import {
   continueSuggestion,
   nextDrillLevel,
   nextLessonInTrack,
+  trackCompletionSummary,
 } from "@/engine/selection.ts";
 import {
   makeLesson,
@@ -115,6 +116,32 @@ describe.skip("continueSuggestion", () => {
       },
     });
     expect(continueSuggestion(topics, progress)).toBeNull();
+  });
+});
+
+/* YOUR TURN #6 — delete `.skip` when you start trackCompletionSummary. */
+describe.skip("trackCompletionSummary", () => {
+  it("counts lessons across all modules", () => {
+    expect(trackCompletionSummary(track, makeProgress())).toEqual({
+      completed: 0,
+      total: 3,
+    });
+  });
+
+  it("counts only completed ids that belong to this track", () => {
+    const progress = makeProgress({
+      tracks: {
+        "t-demo": {
+          // "ghost" was removed from the curriculum — it must not count.
+          completedLessonIds: ["l1", "l3", "ghost"],
+          lastActiveAt: 0,
+        },
+      },
+    });
+    expect(trackCompletionSummary(track, progress)).toEqual({
+      completed: 2,
+      total: 3,
+    });
   });
 });
 

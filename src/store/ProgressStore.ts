@@ -40,6 +40,22 @@ export const reviewStateSchema = z.object({
   dueDate: z.string(), // ISO date string
 });
 
+/**
+ * Learning preferences from onboarding. Honest framing: these tune HOW
+ * content is presented (engagement), not a claim that matching a "style"
+ * improves retention — retention comes from retrieval + spacing, applied
+ * to everyone.
+ */
+export const learningProfileSchema = z.object({
+  presentation: z.enum([
+    "more-text",
+    "more-visual",
+    "story-first",
+    "interactive-first",
+  ]),
+  sessionLength: z.enum(["short", "standard", "long"]),
+});
+
 export const progressStateSchema = z.object({
   version: z.number().int(),
   streak: z.object({
@@ -51,6 +67,7 @@ export const progressStateSchema = z.object({
   tracks: z.record(z.string(), trackProgressSchema), // keyed by trackId
   drills: z.record(z.string(), drillStatSchema), // keyed by drill/lesson id
   reviews: z.record(z.string(), reviewStateSchema), // keyed by lesson id
+  preferences: learningProfileSchema.optional(), // set by onboarding
   lastPosition: z
     .object({ topicId: z.string(), trackId: z.string() })
     .optional(),
@@ -61,9 +78,10 @@ export type SessionRecord = z.infer<typeof sessionRecordSchema>;
 export type TrackProgress = z.infer<typeof trackProgressSchema>;
 export type DrillStat = z.infer<typeof drillStatSchema>;
 export type ReviewState = z.infer<typeof reviewStateSchema>;
+export type LearningProfile = z.infer<typeof learningProfileSchema>;
 
-/** Bump when the persisted shape changes incompatibly (then add a migration). */
-export const PROGRESS_VERSION = 1;
+/** Bump when the persisted shape changes (and add a step to migrations.ts). */
+export const PROGRESS_VERSION = 2;
 
 /** A fresh, empty progress state for first run or unreadable storage. */
 export function createDefaultProgressState(): ProgressState {

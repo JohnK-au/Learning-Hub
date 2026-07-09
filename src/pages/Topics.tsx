@@ -1,55 +1,40 @@
-import type { Block } from "@/schema/schema.ts";
-import { BlockRenderer } from "@/components/BlockRenderer.tsx";
+import { Link } from "react-router-dom";
+import { topics } from "@/content/index.ts";
 
-/**
- * Topics — temporary block-rendering preview for Stage 5. This will be replaced
- * by the real topic list + session player; for now it proves BlockRenderer and
- * the activity registry work end-to-end.
- */
-const demoBlocks: Block[] = [
-  {
-    kind: "prose",
-    body: "A **scale** is a sequence of notes ordered by pitch. The *major scale* follows a fixed pattern of steps — whole, whole, half, whole, whole, whole, half.",
-  },
-  {
-    kind: "callout",
-    variant: "fact",
-    body: "Western music divides the octave into **12** equally-spaced pitches before the pattern repeats.",
-  },
-  {
-    kind: "activity",
-    activity: {
-      type: "multiple-choice",
-      prompt: "How many notes are in a major scale before the octave repeats?",
-      choices: ["Five", "Seven", "Twelve"],
-      answerIndex: 1,
-      explanation: "Seven: do, re, mi, fa, sol, la, ti.",
-    },
-  },
-  {
-    kind: "activity",
-    activity: {
-      type: "recall",
-      prompt: "From memory: what is the step pattern of a major scale?",
-      answer: "Whole, whole, half, whole, whole, whole, half.",
-      hint: "It has two half-steps.",
-    },
-  },
-];
-
+/** Topics — the library. One card per topic, straight from the content data. */
 export default function Topics() {
   return (
     <section className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Topics</h1>
-        <p className="text-muted">Block-rendering preview (temporary).</p>
+        <p className="text-muted">Pick a curriculum to work through.</p>
       </div>
 
-      <div className="space-y-5">
-        {demoBlocks.map((block, index) => (
-          <BlockRenderer key={index} block={block} />
-        ))}
-      </div>
+      {topics.length === 0 ? (
+        <p className="text-sm text-faint">
+          No topics registered yet — add one in src/content/index.ts.
+        </p>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {topics.map((topic) => (
+            <Link
+              key={topic.id}
+              to={`/topic/${topic.id}`}
+              className="rounded-card border border-border bg-surface p-5 transition-colors hover:bg-surface-raised"
+            >
+              <p className="text-2xl" aria-hidden>
+                {topic.icon}
+              </p>
+              <h2 className="mt-2 font-semibold">{topic.title}</h2>
+              <p className="mt-1 text-sm text-muted">{topic.blurb}</p>
+              <p className="mt-2 text-xs text-faint">
+                {topic.tracks.length} track
+                {topic.tracks.length === 1 ? "" : "s"}
+              </p>
+            </Link>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
