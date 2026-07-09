@@ -57,6 +57,10 @@ export const progressStateSchema = z.object({
 });
 
 export type ProgressState = z.infer<typeof progressStateSchema>;
+export type SessionRecord = z.infer<typeof sessionRecordSchema>;
+export type TrackProgress = z.infer<typeof trackProgressSchema>;
+export type DrillStat = z.infer<typeof drillStatSchema>;
+export type ReviewState = z.infer<typeof reviewStateSchema>;
 
 /** Bump when the persisted shape changes incompatibly (then add a migration). */
 export const PROGRESS_VERSION = 1;
