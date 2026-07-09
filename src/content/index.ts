@@ -1,13 +1,15 @@
 import type { Topic, Track } from "@/schema/schema.ts";
+import learningAboutLearning from "@/content/learning-about-learning/index.ts";
 
 /**
  * The content library — the registry of all topics.
  *
  * Each topic lives in its own folder and is added here. The app reads only from
  * this array, so the whole curriculum is data: adding content never touches app
- * logic. Topics are populated in Stage 9.
+ * logic. "Learning about Learning" is the reference template; the nine
+ * curriculum topics get authored in Stage 9.
  */
-export const topics: Topic[] = [];
+export const topics: Topic[] = [learningAboutLearning];
 
 /** Look up a topic by its stable id. */
 export function getTopic(id: string): Topic | undefined {
