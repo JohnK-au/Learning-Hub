@@ -23,7 +23,9 @@ export function BlockRenderer({ block }: { block: Block }) {
             className="rounded-lg border border-border"
           />
           {block.caption && (
-            <figcaption className="text-sm text-faint">{block.caption}</figcaption>
+            <figcaption className="text-sm text-faint">
+              {block.caption}
+            </figcaption>
           )}
         </figure>
       );
@@ -42,7 +44,9 @@ export function BlockRenderer({ block }: { block: Block }) {
       return (
         <blockquote className="border-l-2 border-accent pl-4 italic text-muted">
           {block.speaker && (
-            <p className="mb-1 text-xs not-italic text-faint">{block.speaker}</p>
+            <p className="mb-1 text-xs not-italic text-faint">
+              {block.speaker}
+            </p>
           )}
           <Markdown>{block.body}</Markdown>
         </blockquote>

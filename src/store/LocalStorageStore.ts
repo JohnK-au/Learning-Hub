@@ -4,6 +4,7 @@ import {
   type ProgressState,
   type ProgressStore,
 } from "@/store/ProgressStore.ts";
+import { migrate } from "@/store/migrations.ts";
 
 const STORAGE_KEY = "learning-hub:progress";
 
@@ -23,12 +24,17 @@ export class LocalStorageStore implements ProgressStore {
     this.state = this.load();
   }
 
-  /** Read + validate from storage; fall back to a fresh state on any problem. */
+  /**
+   * Read from storage → run pending migrations (old saves walk up to the
+   * current shape instead of being wiped) → validate. Falls back to a fresh
+   * state only when the data is truly unreadable.
+   */
   private load(): ProgressState {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return createDefaultProgressState();
-      const parsed = progressStateSchema.safeParse(JSON.parse(raw));
+      const migrated = migrate(JSON.parse(raw));
+      const parsed = progressStateSchema.safeParse(migrated);
       return parsed.success ? parsed.data : createDefaultProgressState();
     } catch {
       return createDefaultProgressState();
@@ -72,7 +78,9 @@ export class LocalStorageStore implements ProgressStore {
     const parsed = JSON.parse(json);
     const check = progressStateSchema.safeParse(parsed);
     if (!check.success) {
-      throw new Error("Invalid progress backup: does not match the expected shape.");
+      throw new Error(
+        "Invalid progress backup: does not match the expected shape.",
+      );
     }
     this.state = check.data;
     this.persist();
