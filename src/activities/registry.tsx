@@ -2,6 +2,9 @@ import type { ReactNode } from "react";
 import type { Activity } from "@/schema/schema.ts";
 import { MultipleChoiceActivity } from "@/activities/MultipleChoiceActivity.tsx";
 import { RecallActivity } from "@/activities/RecallActivity.tsx";
+import { NBackActivity } from "@/activities/NBackActivity.tsx";
+import { SequenceRecallActivity } from "@/activities/SequenceRecallActivity.tsx";
+import { PatternRecognitionActivity } from "@/activities/PatternRecognitionActivity.tsx";
 
 /** Narrow the Activity union to a single variant by its `type` tag. */
 type ActivityOf<T extends Activity["type"]> = Extract<Activity, { type: T }>;
@@ -27,6 +30,11 @@ type ActivityComponent<T extends Activity["type"]> = (
 const registry: { [T in Activity["type"]]?: ActivityComponent<T> } = {
   "multiple-choice": MultipleChoiceActivity,
   recall: RecallActivity,
+  "n-back": NBackActivity,
+  "sequence-recall": SequenceRecallActivity,
+  "pattern-recognition": PatternRecognitionActivity,
+  // ordering: ← YOUR TURN #11 registers OrderingActivity here (the Open/Closed
+  //             rep: one component + one line, no renderer changes).
 };
 
 /**
