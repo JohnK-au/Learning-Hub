@@ -72,7 +72,9 @@ export class LocalStorageStore implements ProgressStore {
     const parsed = JSON.parse(json);
     const check = progressStateSchema.safeParse(parsed);
     if (!check.success) {
-      throw new Error("Invalid progress backup: does not match the expected shape.");
+      throw new Error(
+        "Invalid progress backup: does not match the expected shape.",
+      );
     }
     this.state = check.data;
     this.persist();

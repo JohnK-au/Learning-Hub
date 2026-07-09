@@ -26,7 +26,14 @@ export function ProgressProvider({
   );
 }
 
-/** Access the active ProgressStore. */
+/**
+ * Access the active ProgressStore.
+ *
+ * The provider and this accessor hook are deliberately colocated (a standard
+ * context pattern); the file changes rarely, so losing fast-refresh precision
+ * here is a fine trade for keeping the pattern in one place.
+ */
+// eslint-disable-next-line react-refresh/only-export-components
 export function useProgressStore(): ProgressStore {
   return useContext(ProgressStoreContext);
 }

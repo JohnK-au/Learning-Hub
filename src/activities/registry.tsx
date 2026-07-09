@@ -26,7 +26,7 @@ type ActivityComponent<T extends Activity["type"]> = (
  */
 const registry: { [T in Activity["type"]]?: ActivityComponent<T> } = {
   "multiple-choice": MultipleChoiceActivity,
-  "recall": RecallActivity,
+  recall: RecallActivity,
 };
 
 /**
@@ -46,8 +46,7 @@ export function ActivityRenderer({
   onResult?: (correct: boolean) => void;
 }): ReactNode {
   const Component = registry[activity.type] as
-    | ActivityComponent<Activity["type"]>
-    | undefined;
+    ActivityComponent<Activity["type"]> | undefined;
 
   if (!Component) {
     return (
