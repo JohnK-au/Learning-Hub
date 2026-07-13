@@ -1,0 +1,44 @@
+<svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+  <rect width="520" height="220" fill="#121826" rx="12"/>
+  <g transform="translate(30,30)">
+    <!-- white keys: C D E F G A B C -->
+    <g fill="#e8edf7" stroke="#26304a" stroke-width="2">
+      <rect x="0"   y="0" width="57" height="140" rx="4"/>
+      <rect x="57"  y="0" width="57" height="140" rx="4"/>
+      <rect x="114" y="0" width="57" height="140" rx="4"/>
+      <rect x="171" y="0" width="57" height="140" rx="4"/>
+      <rect x="228" y="0" width="57" height="140" rx="4"/>
+      <rect x="285" y="0" width="57" height="140" rx="4"/>
+      <rect x="342" y="0" width="57" height="140" rx="4"/>
+      <rect x="399" y="0" width="57" height="140" rx="4"/>
+    </g>
+    <!-- black keys (no black key between E–F and B–C: those are the half steps) -->
+    <g fill="#0b0f1a" stroke="#26304a" stroke-width="2">
+      <rect x="40"  y="0" width="34" height="88" rx="3"/>
+      <rect x="97"  y="0" width="34" height="88" rx="3"/>
+      <rect x="211" y="0" width="34" height="88" rx="3"/>
+      <rect x="268" y="0" width="34" height="88" rx="3"/>
+      <rect x="325" y="0" width="34" height="88" rx="3"/>
+    </g>
+    <!-- note names -->
+    <g fill="#66718c" font-size="13" text-anchor="middle">
+      <text x="28"  y="160">C</text>
+      <text x="85"  y="160">D</text>
+      <text x="142" y="160">E</text>
+      <text x="199" y="160">F</text>
+      <text x="256" y="160">G</text>
+      <text x="313" y="160">A</text>
+      <text x="370" y="160">B</text>
+      <text x="427" y="160">C</text>
+    </g>
+    <!-- half-step brackets -->
+    <g stroke="#f87171" stroke-width="2" fill="none">
+      <path d="M 130 175 L 130 182 L 183 182 L 183 175"/>
+      <path d="M 358 175 L 358 182 L 411 182 L 411 175"/>
+    </g>
+    <g fill="#f87171" font-size="11" text-anchor="middle">
+      <text x="156" y="196">half step</text>
+      <text x="384" y="196">half step</text>
+    </g>
+  </g>
+</svg>
