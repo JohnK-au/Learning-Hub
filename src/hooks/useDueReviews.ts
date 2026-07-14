@@ -1,3 +1,6 @@
+import { useProgress } from "@/hooks/useProgress.ts";
+import { dueReviews } from "@/engine/scheduler.ts";
+
 /**
  * Selector hook: the lesson ids whose spaced-repetition reviews are due
  * today. Same pattern as useStreak — build on useProgress, return one slice.
@@ -17,5 +20,7 @@
  * wrench card naming this TODO).
  */
 export function useDueReviews(): string[] {
-  throw new Error("TODO: implement useDueReviews (YOUR TURN #7)");
+  const { state } = useProgress();
+  const today = new Date().toISOString().slice(0, 10);
+  return dueReviews(state, today);
 }
