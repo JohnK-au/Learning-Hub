@@ -16,3 +16,7 @@ progress.tracks[track.id]?.completedLessonIds ?? [],
 );
 
 5. How am I supposed to know when it is track.modules or modules.lessons?
+
+6. I'm also confused how you know what to define a variable as in a function. For example, how did you know to define streak as ProgressState["streak"]?
+
+7. I'm still confused about the scheduler dueReviews function. So I understand in principle that I am looking at the dictionary containing the lessonId and its review state, as an array. I am returning the lesson ids that have a review state that is today? I am confused what the 'review' variable passed into the ReviewIsDue function is and where it comes from?

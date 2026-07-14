@@ -33,7 +33,7 @@ describe("reviewIsDue (worked example)", () => {
 
 /* YOUR TURN #3 — delete `.skip` when you start scheduleNext.
  * These tests follow the exact worked trace in the scheduler.ts comment. */
-describe.skip("scheduleNext", () => {
+describe("scheduleNext", () => {
   const today = "2026-07-15";
 
   it("'good' on a first-ever review sets a 1-day interval", () => {
@@ -83,7 +83,7 @@ describe.skip("scheduleNext", () => {
 });
 
 /* YOUR TURN #4 — delete `.skip` when you start dueReviews. */
-describe.skip("dueReviews", () => {
+describe("dueReviews", () => {
   it("returns only the lesson ids whose reviews are due", () => {
     const progress = makeProgress({
       reviews: {

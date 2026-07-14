@@ -90,10 +90,21 @@ export function scheduleNext(
   grade: ReviewGrade,
   today: string,
 ): ReviewState {
-  void review;
-  void grade;
-  void today;
-  throw new Error("TODO: implement scheduleNext (YOUR TURN #3)");
+  let ease = review.ease;
+  let intervalDays: number;
+
+  if (grade === "again") {
+    ease = Math.max(1.3, ease - 0.2);
+    intervalDays = 1;
+  } else if (grade === "good") {
+    intervalDays = review.intervalDays === 0 ? 1 : review.intervalDays * ease;
+  } else {
+    ease = ease + 0.15;
+    intervalDays = review.intervalDays === 0 ? 2 : review.intervalDays * ease;
+  }
+
+  intervalDays = Math.ceil(intervalDays);
+  return { ease, intervalDays, dueDate: addDays(today, intervalDays) };
 }
 
 /* ------------------------------------------------------------------------ *
@@ -115,7 +126,7 @@ export function scheduleNext(
  * Verify: unskip `describe.skip("dueReviews", ...)` in scheduler.test.ts.
  */
 export function dueReviews(progress: ProgressState, today: string): string[] {
-  void progress;
-  void today;
-  throw new Error("TODO: implement dueReviews (YOUR TURN #4)");
+  return Object.entries(progress.reviews)
+    .filter(([, review]) => reviewIsDue(review, today))
+    .map(([lessonId]) => lessonId);
 }
