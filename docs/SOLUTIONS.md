@@ -1,4 +1,4 @@
-# 🔒 Solutions — peek only after a real attempt
+=# 🔒 Solutions — peek only after a real attempt
 
 Rules of engagement: (1) attempt first, red test in front of you; (2) peek at
 ONE solution only; (3) close this file and **type it yourself** — typing is a

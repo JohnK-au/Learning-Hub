@@ -65,14 +65,15 @@ describe("nextLessonInTrack (worked example)", () => {
 });
 
 /* YOUR TURN #1 — delete `.skip` when you start continueSuggestion. */
-describe.skip("continueSuggestion", () => {
+describe("continueSuggestion", () => {
   const trackA = makeTrack("track-a", [
     makeModule("ma", [makeLesson("a1"), makeLesson("a2")]),
   ]);
-  const trackB = makeTrack("track-b", [
-    makeModule("mb", [makeLesson("b1")]),
-  ]);
-  const topics = [makeTopic("topic-a", [trackA]), makeTopic("topic-b", [trackB])];
+  const trackB = makeTrack("track-b", [makeModule("mb", [makeLesson("b1")])]);
+  const topics = [
+    makeTopic("topic-a", [trackA]),
+    makeTopic("topic-b", [trackB]),
+  ];
 
   it("resumes from lastPosition when that track has a next lesson", () => {
     const progress = makeProgress({
@@ -120,7 +121,7 @@ describe.skip("continueSuggestion", () => {
 });
 
 /* YOUR TURN #6 — delete `.skip` when you start trackCompletionSummary. */
-describe.skip("trackCompletionSummary", () => {
+describe("trackCompletionSummary", () => {
   it("counts lessons across all modules", () => {
     expect(trackCompletionSummary(track, makeProgress())).toEqual({
       completed: 0,
@@ -146,7 +147,7 @@ describe.skip("trackCompletionSummary", () => {
 });
 
 /* YOUR TURN #2 — delete `.skip` when you start nextDrillLevel. */
-describe.skip("nextDrillLevel", () => {
+describe("nextDrillLevel", () => {
   it("moves up a level on a strong score (>= 0.8)", () => {
     expect(nextDrillLevel(3, 0.8)).toBe(4);
     expect(nextDrillLevel(3, 0.95)).toBe(4);

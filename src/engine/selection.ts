@@ -50,7 +50,9 @@ export function nextLessonInTrack(
   track: Track,
   progress: ProgressState,
 ): Lesson | null {
-  const completed = new Set(progress.tracks[track.id]?.completedLessonIds ?? []);
+  const completed = new Set(
+    progress.tracks[track.id]?.completedLessonIds ?? [],
+  );
 
   for (const module of track.modules) {
     for (const lesson of module.lessons) {
@@ -89,9 +91,26 @@ export function continueSuggestion(
   topics: Topic[],
   progress: ProgressState,
 ): ContinueSuggestion | null {
-  void topics;
-  void progress;
-  throw new Error("TODO: implement continueSuggestion (YOUR TURN #1)");
+  if (progress.lastPosition) {
+    const topic = topics.find((t) => t.id === progress.lastPosition?.topicId);
+    const track = topic?.tracks.find(
+      (t) => t.id === progress.lastPosition?.trackId,
+    );
+
+    if (track && topic) {
+      const lesson = nextLessonInTrack(track, progress);
+      if (lesson) return { topicId: topic.id, trackId: track.id, lesson };
+    }
+  }
+
+  for (const topic of topics) {
+    for (const track of topic.tracks) {
+      const lesson = nextLessonInTrack(track, progress);
+      if (lesson) return { topicId: topic.id, trackId: track.id, lesson };
+    }
+  }
+
+  return null;
 }
 
 /* ------------------------------------------------------------------------ *
@@ -114,9 +133,9 @@ export function continueSuggestion(
  * Verify: unskip `describe.skip("nextDrillLevel", ...)` in selection.test.ts.
  */
 export function nextDrillLevel(currentLevel: number, score: number): number {
-  void currentLevel;
-  void score;
-  throw new Error("TODO: implement nextDrillLevel (YOUR TURN #2)");
+  if (score >= 0.8) return currentLevel + 1;
+  if (score < 0.5) return Math.max(1, currentLevel - 1);
+  return currentLevel;
 }
 
 /* ------------------------------------------------------------------------ *
@@ -142,7 +161,15 @@ export function trackCompletionSummary(
   track: Track,
   progress: ProgressState,
 ): { completed: number; total: number } {
-  void track;
-  void progress;
-  throw new Error("TODO: implement trackCompletionSummary (YOUR TURN #6)");
+  const done = new Set(progress.tracks[track.id]?.completedLessonIds ?? []);
+  let completed = 0;
+  let total = 0;
+
+  for (const module of track.modules) {
+    for (const lesson of module.lessons) {
+      total++;
+      if (done.has(lesson.id)) completed++;
+    }
+  }
+  return { completed, total };
 }
