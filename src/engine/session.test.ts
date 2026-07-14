@@ -33,7 +33,7 @@ describe("bumpStreak (provided)", () => {
 });
 
 /* YOUR TURN #5 — delete `.skip` when you start completeLesson. */
-describe.skip("completeLesson", () => {
+describe("completeLesson", () => {
   const lesson = makeLesson("l1", {
     reviewItems: [{ question: "Q?", answer: "A." }],
   });

@@ -1,6 +1,6 @@
 import type { Block, Lesson } from "@/schema/schema.ts";
 import type { LearningProfile, ProgressState } from "@/store/ProgressStore.ts";
-import { addDays } from "@/engine/scheduler.ts";
+import { addDays, newReview } from "@/engine/scheduler.ts";
 
 /**
  * SESSION ENGINE — what happens to progress when a lesson is finished.
@@ -78,9 +78,45 @@ export function completeLesson(
   state: ProgressState,
   args: CompleteLessonArgs,
 ): ProgressState {
-  void state;
-  void args;
-  throw new Error("TODO: implement completeLesson (YOUR TURN #5)");
+  const existing = state.tracks[args.trackId] ?? {
+    completedLessonIds: [],
+    lastActiveAt: 0,
+  };
+  const completedLessonIds = existing.completedLessonIds.includes(
+    args.lesson.id,
+  )
+    ? existing.completedLessonIds
+    : [...existing.completedLessonIds, args.lesson.id];
+
+  const hasReviewItems = (args.lesson.reviewItems?.length ?? 0) > 0;
+  const reviews =
+    hasReviewItems && !state.reviews[args.lesson.id]
+      ? { ...state.reviews, [args.lesson.id]: newReview(args.today) }
+      : state.reviews;
+
+  return {
+    ...state,
+    streak: bumpStreak(state.streak, args.today),
+    tracks: {
+      ...state.tracks,
+      [args.trackId]: {
+        completedLessonIds,
+        currentLessonId: args.lesson.id,
+        lastActiveAt: args.now,
+      },
+    },
+    history: [
+      ...state.history,
+      {
+        date: args.today,
+        topicId: args.topicId,
+        trackId: args.trackId,
+        lessonIds: [args.lesson.id],
+      },
+    ],
+    reviews,
+    lastPosition: { topicId: args.topicId, trackId: args.trackId },
+  };
 }
 
 /* ------------------------------------------------------------------------ *
