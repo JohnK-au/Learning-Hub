@@ -133,10 +133,12 @@ function ImportButton({ importJSON }: { importJSON: (json: string) => void }) {
   const [message, setMessage] = useState<string | null>(null);
 
   function handleImportedText(text: string) {
-    void text;
-    void importJSON;
-    void setMessage;
-    throw new Error("TODO: implement the import handler (YOUR TURN #9)");
+    try {
+      importJSON(text);
+      setMessage("Progress restored ✓");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : String(error));
+    }
   }
 
   async function onFileChosen(file: File | undefined) {
