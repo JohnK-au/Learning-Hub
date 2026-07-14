@@ -1,4 +1,5 @@
 import type { TrackProgress } from "@/store/ProgressStore.ts";
+import { useProgress } from "@/hooks/useProgress.ts";
 
 /**
  * Selector hook: one track's progress record, with a safe default for a
@@ -14,6 +15,6 @@ import type { TrackProgress } from "@/store/ProgressStore.ts";
  * the ✓ marks appear (also needs #6 for the summary).
  */
 export function useTrackProgress(trackId: string): TrackProgress {
-  void trackId;
-  throw new Error("TODO: implement useTrackProgress (YOUR TURN #8)");
+  const { state } = useProgress();
+  return state.tracks[trackId] ?? { completedLessonIds: [], lastActiveAt: 0 };
 }
