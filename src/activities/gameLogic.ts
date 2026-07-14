@@ -45,10 +45,8 @@ export function isNBackMatch(
   index: number,
   n: number,
 ): boolean {
-  void sequence;
-  void index;
-  void n;
-  throw new Error("TODO: implement isNBackMatch (YOUR TURN #12)");
+  if (index - n < 0) return false;
+  return sequence[index] === sequence[index - n];
 }
 
 /* ------------------------------------------------------------------------ *
@@ -70,9 +68,15 @@ export function isNBackMatch(
  * they know exactly what your function should produce.
  */
 export function generateSequence(length: number, rng: Rng): number[] {
-  void length;
-  void rng;
-  throw new Error("TODO: implement generateSequence (YOUR TURN #13)");
+  const sequence: number[] = [];
+  for (let i = 0; i < length; i++) {
+    let cell = randomInt(rng, 9);
+    while (cell === sequence[i - 1]) {
+      cell = randomInt(rng, 9);
+    }
+    sequence.push(cell);
+  }
+  return sequence;
 }
 
 /* ------------------------------------------------------------------------ *
@@ -94,7 +98,8 @@ export function generateSequence(length: number, rng: Rng): number[] {
  * Verify: unskip `describe.skip("scorePattern", ...)` in gameLogic.test.ts.
  */
 export function scorePattern(selected: number[], targets: number[]): number {
-  void selected;
-  void targets;
-  throw new Error("TODO: implement scorePattern (YOUR TURN #14)");
+  if (targets.length === 0) return 0;
+  const targetSet = new Set(targets);
+  const correct = selected.filter((cell) => targetSet.has(cell)).length;
+  return correct / targets.length;
 }

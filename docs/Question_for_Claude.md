@@ -24,3 +24,7 @@ progress.tracks[track.id]?.completedLessonIds ?? [],
 8. I don't understand what you mean by destructuring in the syntax cheat sheet ('grab a field into a variable')?
 
 9. I don't understand TODO #5 at all. I copied the solution so I could keep going forward but I don't understand how the code works. We need to go through line by line because I think there are some fundamental concepts and syntax I just don't understand. I definitely don't understand what 'args' is.
+
+10. I'm confused by the rng example in the gameLogic.ts. Let's reiew this.
+
+11. I don't understand the generateSequence function at all.

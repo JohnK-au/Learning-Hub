@@ -22,7 +22,7 @@ describe("randomInt (provided)", () => {
 });
 
 /* YOUR TURN #12 — delete `.skip` when you start isNBackMatch. */
-describe.skip("isNBackMatch", () => {
+describe("isNBackMatch", () => {
   const seq = ["A", "B", "A", "C", "C"];
 
   it("detects a true n-back match", () => {
@@ -45,7 +45,7 @@ describe.skip("isNBackMatch", () => {
 });
 
 /* YOUR TURN #13 — delete `.skip` when you start generateSequence. */
-describe.skip("generateSequence", () => {
+describe("generateSequence", () => {
   it("produces the requested length with scripted rng values", () => {
     // 0.0→cell 0, 0.5→cell 4, 0.99→cell 8 …
     const rng = fakeRng([0.0, 0.5, 0.99]);
@@ -68,7 +68,7 @@ describe.skip("generateSequence", () => {
 });
 
 /* YOUR TURN #14 — delete `.skip` when you start scorePattern. */
-describe.skip("scorePattern", () => {
+describe("scorePattern", () => {
   it("full marks for a perfect answer", () => {
     expect(scorePattern([1, 4, 7], [1, 4, 7])).toBe(1);
   });
