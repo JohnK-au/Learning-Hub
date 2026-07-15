@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ActivityProps } from "@/activities/registry.tsx";
 
 /**
@@ -41,14 +42,64 @@ import type { ActivityProps } from "@/activities/registry.tsx";
  *
  * (Until you replace it, the placeholder below just names the task.)
  */
-export function OrderingActivity({ activity }: ActivityProps<"ordering">) {
+export function OrderingActivity({
+  activity,
+  onResult,
+}: ActivityProps<"ordering">) {
+  const [picked, setPicked] = useState<number[]>([]);
+  const complete = picked.length === activity.items.length;
+  const correct =
+    complete && picked.join(",") === activity.correctOrder.join(",");
+
+  function pick(index: number) {
+    if (complete || picked.includes(index)) return;
+    const next = [...picked, index];
+    setPicked(next);
+    if (next.length === activity.items.length) {
+      onResult?.(next.join(",") === activity.correctOrder.join(","));
+    }
+  }
+
   return (
-    <div className="rounded-lg border border-dashed border-border bg-surface p-4">
+    <div className="space-y-3">
       <p className="font-medium">{activity.prompt}</p>
-      <p className="mt-2 text-sm text-faint">
-        🔧 Build me: OrderingActivity (YOUR TURN #11 in
-        src/activities/OrderingActivity.tsx)
-      </p>
+
+      <ul className="space-y-2">
+        {activity.items.map((item, index) => {
+          const position = picked.indexOf(index);
+          return (
+            <li key={index}>
+              <button
+                type="button"
+                disabled={picked.includes(index)}
+                onClick={() => pick(index)}
+                className="w-full rounded-lg border border-border bg-surface px-4 py-2 text-left transition-colors hover:bg-surface-raised disabled:opacity-60"
+              >
+                {position >= 0 && (
+                  <span className="mr-2 text-accent">{position + 1}.</span>
+                )}
+                {item}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      {complete && (
+        <p className="text-sm text-muted">
+          {correct ? "Correct! " : "Not quite. "}
+          {activity.explanation}
+        </p>
+      )}
+      {complete && !correct && (
+        <button
+          type="button"
+          onClick={() => setPicked([])}
+          className="rounded-lg border border-border bg-surface px-4 py-2 text-sm transition-colors hover:bg-surface-raised"
+        >
+          Try again
+        </button>
+      )}
     </div>
   );
 }

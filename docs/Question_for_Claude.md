@@ -28,3 +28,5 @@ progress.tracks[track.id]?.completedLessonIds ?? [],
 10. I'm confused by the rng example in the gameLogic.ts. Let's reiew this.
 
 11. I don't understand the generateSequence function at all.
+
+12. Ok I am also skipping the manual implementation of TODOs #11 and #12. I really don't understand how to build a react component so we will need to go through them together.
