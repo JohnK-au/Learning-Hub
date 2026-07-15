@@ -139,7 +139,7 @@ export function shouldShowBlock(
   block: Block,
   profile: LearningProfile | undefined,
 ): boolean {
-  void block;
-  void profile;
-  throw new Error("TODO: implement shouldShowBlock (YOUR TURN #10)");
+  if (block.kind !== "prose") return true;
+  if (block.depth !== "deep-dive") return true;
+  return profile?.presentation === "more-text";
 }
