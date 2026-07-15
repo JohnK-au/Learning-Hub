@@ -5,6 +5,7 @@ import { RecallActivity } from "@/activities/RecallActivity.tsx";
 import { NBackActivity } from "@/activities/NBackActivity.tsx";
 import { SequenceRecallActivity } from "@/activities/SequenceRecallActivity.tsx";
 import { PatternRecognitionActivity } from "@/activities/PatternRecognitionActivity.tsx";
+import { OrderingActivity } from "@/activities/OrderingActivity.tsx";
 
 /** Narrow the Activity union to a single variant by its `type` tag. */
 type ActivityOf<T extends Activity["type"]> = Extract<Activity, { type: T }>;
@@ -33,8 +34,7 @@ const registry: { [T in Activity["type"]]?: ActivityComponent<T> } = {
   "n-back": NBackActivity,
   "sequence-recall": SequenceRecallActivity,
   "pattern-recognition": PatternRecognitionActivity,
-  // ordering: ← YOUR TURN #11 registers OrderingActivity here (the Open/Closed
-  //             rep: one component + one line, no renderer changes).
+  ordering: OrderingActivity,
 };
 
 /**

@@ -105,7 +105,7 @@ describe("completeLesson", () => {
 });
 
 /* YOUR TURN #10 — delete `.skip` when you start shouldShowBlock. */
-describe.skip("shouldShowBlock", () => {
+describe("shouldShowBlock", () => {
   const textLover: LearningProfile = {
     presentation: "more-text",
     sessionLength: "short",
