@@ -1,20 +1,20 @@
-<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
-  <rect width="480" height="280" fill="#121826" rx="12"/>
+<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" font-family="Palatino, Georgia, serif">
+  <rect width="480" height="280" fill="#f7f0dd" rx="12"/>
   <!-- axes -->
-  <line x1="48" y1="24" x2="48" y2="232" stroke="#26304a" stroke-width="2"/>
-  <line x1="48" y1="232" x2="456" y2="232" stroke="#26304a" stroke-width="2"/>
-  <text x="16" y="130" fill="#9aa6c0" font-size="12" transform="rotate(-90 16 130)">retention</text>
-  <text x="240" y="260" fill="#9aa6c0" font-size="12" text-anchor="middle">time</text>
+  <line x1="48" y1="24" x2="48" y2="232" stroke="#c9b892" stroke-width="2"/>
+  <line x1="48" y1="232" x2="456" y2="232" stroke="#c9b892" stroke-width="2"/>
+  <text x="16" y="130" fill="#6f6a52" font-size="12" transform="rotate(-90 16 130)">retention</text>
+  <text x="240" y="260" fill="#6f6a52" font-size="12" text-anchor="middle">time</text>
   <!-- forgetting curve without review -->
-  <path d="M 48 40 Q 120 180 456 216" fill="none" stroke="#f87171" stroke-width="2.5" stroke-dasharray="6 4"/>
-  <text x="360" y="205" fill="#f87171" font-size="12">no review</text>
+  <path d="M 48 40 Q 120 180 456 216" fill="none" stroke="#a24436" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="360" y="205" fill="#a24436" font-size="12">no review</text>
   <!-- curves with spaced reviews -->
-  <path d="M 48 40 Q 90 140 140 168" fill="none" stroke="#7c9cff" stroke-width="2.5"/>
-  <path d="M 140 40 Q 200 120 260 148" fill="none" stroke="#7c9cff" stroke-width="2.5"/>
-  <path d="M 260 40 Q 340 100 456 124" fill="none" stroke="#7c9cff" stroke-width="2.5"/>
-  <line x1="140" y1="168" x2="140" y2="40" stroke="#4ade80" stroke-width="2"/>
-  <line x1="260" y1="148" x2="260" y2="40" stroke="#4ade80" stroke-width="2"/>
-  <text x="146" y="56" fill="#4ade80" font-size="12">review!</text>
-  <text x="266" y="56" fill="#4ade80" font-size="12">review!</text>
-  <text x="330" y="90" fill="#7c9cff" font-size="12">each review flattens the curve</text>
+  <path d="M 48 40 Q 90 140 140 168" fill="none" stroke="#4f7a44" stroke-width="2.5"/>
+  <path d="M 140 40 Q 200 120 260 148" fill="none" stroke="#4f7a44" stroke-width="2.5"/>
+  <path d="M 260 40 Q 340 100 456 124" fill="none" stroke="#4f7a44" stroke-width="2.5"/>
+  <line x1="140" y1="168" x2="140" y2="40" stroke="#a9791f" stroke-width="2"/>
+  <line x1="260" y1="148" x2="260" y2="40" stroke="#a9791f" stroke-width="2"/>
+  <text x="146" y="56" fill="#a9791f" font-size="12">review!</text>
+  <text x="266" y="56" fill="#a9791f" font-size="12">review!</text>
+  <text x="330" y="90" fill="#4f7a44" font-size="12">each review flattens the curve</text>
 </svg>

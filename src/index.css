@@ -6,27 +6,32 @@
   text-surface, border-surface). Components reference tokens, never raw hex.
 */
 @theme {
-  --color-bg: #0b0f1a;
-  --color-surface: #121826;
-  --color-surface-raised: #1a2235;
-  --color-border: #26304a;
-  --color-text: #e8edf7;
-  --color-muted: #9aa6c0;
-  --color-faint: #66718c;
+  /* "Scriptorium" — a warm papyrus base with a forest-green palette. */
+  --color-bg: #efe6cf; /* papyrus */
+  --color-surface: #f7f0dd; /* card — lifts gently off the page */
+  --color-surface-raised: #fcf7e8; /* raised / hover */
+  --color-border: #d8c9a3; /* soft tan rule */
+  --color-text: #33301f; /* warm ink */
+  --color-muted: #6f6a52; /* olive-brown */
+  --color-faint: #a09877; /* faint tan */
 
-  --color-accent: #7c9cff;
-  --color-accent-strong: #5b7cff;
-  --color-success: #4ade80;
-  --color-warning: #fbbf24;
-  --color-danger: #f87171;
+  --color-accent: #4f7a44; /* leaf green */
+  --color-accent-strong: #3c6234; /* deep forest — buttons */
+  --color-success: #4f8a3f; /* correct */
+  --color-warning: #a9791f; /* ochre / goldenrod */
+  --color-danger: #a24436; /* terracotta */
 
   --radius-card: 1rem;
   --font-sans:
     "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Classical serif stack — all system fonts, so it works fully offline. */
+  --font-serif:
+    "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+    "Times New Roman", serif;
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -35,8 +40,7 @@ body {
   min-height: 100dvh;
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-serif);
   text-rendering: optimizeLegibility;
 }
 
@@ -62,7 +66,8 @@ body {
 .markdown code {
   font-family: ui-monospace, monospace;
   background: var(--color-surface-raised);
-  padding: 0.1em 0.3em;
+  border: 1px solid var(--color-border);
+  padding: 0.05em 0.3em;
   border-radius: 0.25rem;
   font-size: 0.9em;
 }
