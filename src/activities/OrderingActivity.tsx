@@ -2,103 +2,149 @@ import { useState } from "react";
 import type { ActivityProps } from "@/activities/registry.tsx";
 
 /**
- * Put-these-in-order activity (chronologies, scales, process steps).
- *
- * --- YOUR TURN #11 — your first full component, from scratch ---
- *
- * This is the capstone of what you practiced in MultipleChoiceActivity and
- * RecallActivity — open those two side by side as references; every tool you
- * need appears in one of them.
- *
- * HOW IT SHOULD BEHAVE
- *   1. Show `activity.prompt`.
- *   2. Show a button per item (activity.items). Tapping an item appends its
- *      INDEX to the player's picked list and disables that button (a picked
- *      item can't be picked twice). Show the running order they've built so
- *      far (e.g. numbered, or a joined string).
- *   3. When picked.length === activity.items.length, the answer is complete:
- *      compare picked against activity.correctOrder and show right/wrong plus
- *      `activity.explanation` (look at how MC shows its explanation).
- *   4. Call `onResult?.(isCorrect)` exactly once when the answer completes.
- *
- * THE PIECES
- *   - State: const [picked, setPicked] = useState<number[]>([]);
- *     Appending WITHOUT mutating (same rule as the store):
- *       setPicked([...picked, index]);
- *   - "Is this index already picked?" → picked.includes(index) — that's your
- *     `disabled` prop for each button.
- *   - Comparing two arrays: `===` compares IDENTITY, not contents(!) — the
- *     simplest content-compare here is
- *       picked.join(",") === activity.correctOrder.join(",")
- *   - Rendering the items: activity.items.map((item, index) => ...), exactly
- *     like the choices loop in MultipleChoiceActivity — copy its <li>/<button>
- *     structure and classNames for the styling.
- *
- * WHEN IT WORKS — register it (your Open/Closed rep):
- *   In registry.tsx: import { OrderingActivity } from "./OrderingActivity.tsx"
- *   and add   ordering: OrderingActivity,   to the registry map. The example
- *   topic's ordering exercise (Topics → the example topic) comes alive the
- *   moment you do — with zero changes to any renderer.
- *
- * (Until you replace it, the placeholder below just names the task.)
+ * Put-these-in-order activity. The learner taps items to build a sequence
+ * (each tap appends a position number), taps again to remove one, and locks
+ * the answer in with Confirm. Nothing is graded until Confirm.
  */
 export function OrderingActivity({
   activity,
   onResult,
 }: ActivityProps<"ordering">) {
+  // The order being built, as item indexes. `submitted` locks it for grading.
   const [picked, setPicked] = useState<number[]>([]);
-  const complete = picked.length === activity.items.length;
-  const correct =
-    complete && picked.join(",") === activity.correctOrder.join(",");
+  const [submitted, setSubmitted] = useState(false);
 
-  function pick(index: number) {
-    if (complete || picked.includes(index)) return;
-    const next = [...picked, index];
-    setPicked(next);
-    if (next.length === activity.items.length) {
-      onResult?.(next.join(",") === activity.correctOrder.join(","));
-    }
+  const complete = picked.length === activity.items.length;
+  const correct = picked.join(",") === activity.correctOrder.join(",");
+
+  function toggle(index: number) {
+    if (submitted) return;
+    setPicked(
+      picked.includes(index)
+        ? picked.filter((i) => i !== index) // tap again to remove
+        : [...picked, index], // otherwise place it next
+    );
+  }
+
+  function confirm() {
+    if (!complete || submitted) return;
+    setSubmitted(true);
+    onResult?.(correct);
+  }
+
+  function reset() {
+    setPicked([]);
+    setSubmitted(false);
   }
 
   return (
     <div className="space-y-3">
       <p className="font-medium">{activity.prompt}</p>
 
+      {/* Make the multi-step nature explicit. */}
+      <div className="flex items-center gap-2 text-xs text-muted">
+        <span className="rounded-full border border-border bg-surface-raised px-2 py-0.5 font-medium uppercase tracking-wide">
+          Put in order
+        </span>
+        <span>
+          {submitted
+            ? correct
+              ? "Locked in ✓"
+              : "Locked in"
+            : "Tap items in order · tap again to remove"}
+        </span>
+      </div>
+
       <ul className="space-y-2">
         {activity.items.map((item, index) => {
           const position = picked.indexOf(index);
+          const isPicked = position >= 0;
+
+          // Colour the tile by state.
+          let tone = "border-border bg-surface hover:bg-surface-raised";
+          if (submitted && isPicked) {
+            const rightHere = activity.correctOrder[position] === index;
+            tone = rightHere
+              ? "border-success bg-success/10"
+              : "border-danger bg-danger/10";
+          } else if (isPicked) {
+            tone = "border-accent bg-accent/10";
+          }
+
           return (
             <li key={index}>
               <button
                 type="button"
-                disabled={picked.includes(index)}
-                onClick={() => pick(index)}
-                className="w-full rounded-lg border border-border bg-surface px-4 py-2 text-left transition-colors hover:bg-surface-raised disabled:opacity-60"
+                disabled={submitted}
+                onClick={() => toggle(index)}
+                className={`flex w-full items-center gap-3 rounded-lg border px-4 py-2 text-left transition-colors disabled:cursor-default ${tone}`}
               >
-                {position >= 0 && (
-                  <span className="mr-2 text-accent">{position + 1}.</span>
-                )}
-                {item}
+                {/* Numbered badge shows where this item sits in the sequence. */}
+                <span
+                  className={`grid size-6 shrink-0 place-items-center rounded-full border text-xs font-semibold ${
+                    isPicked
+                      ? "border-transparent bg-accent-strong text-white"
+                      : "border-border text-faint"
+                  }`}
+                  aria-hidden
+                >
+                  {isPicked ? position + 1 : ""}
+                </span>
+                <span>{item}</span>
               </button>
             </li>
           );
         })}
       </ul>
 
-      {complete && (
-        <p className="text-sm text-muted">
-          {correct ? "Correct! " : "Not quite. "}
-          {activity.explanation}
-        </p>
+      {/* Progress + controls. */}
+      {!submitted && (
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={confirm}
+            disabled={!complete}
+            className="rounded-lg bg-accent-strong px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent disabled:opacity-40"
+          >
+            Confirm answer
+          </button>
+          <span className="text-xs text-faint">
+            {picked.length} / {activity.items.length} placed
+          </span>
+          {picked.length > 0 && (
+            <button
+              type="button"
+              onClick={reset}
+              className="ml-auto text-xs text-muted underline hover:text-text"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       )}
-      {complete && !correct && (
-        <button
-          type="button"
-          onClick={() => setPicked([])}
-          className="rounded-lg border border-border bg-surface px-4 py-2 text-sm transition-colors hover:bg-surface-raised"
-        >
-          Try again
-        </button>
+
+      {submitted && (
+        <div className="space-y-2">
+          <p className="text-sm text-muted">
+            <span
+              className={
+                correct ? "font-medium text-success" : "font-medium text-danger"
+              }
+            >
+              {correct ? "Correct! " : "Not quite. "}
+            </span>
+            {activity.explanation}
+          </p>
+          {!correct && (
+            <button
+              type="button"
+              onClick={reset}
+              className="rounded-lg border border-border bg-surface px-4 py-2 text-sm transition-colors hover:bg-surface-raised"
+            >
+              Try again
+            </button>
+          )}
+        </div>
       )}
     </div>
   );
