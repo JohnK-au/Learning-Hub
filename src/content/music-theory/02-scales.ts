@@ -24,11 +24,15 @@ export default defineModule({
           activity: {
             type: "ordering",
             prompt:
-              "Put the major-scale step pattern in order, from the first gap to the last:",
-            items: ["Half, whole, whole", "Whole, whole, half", "Whole"],
-            correctOrder: [1, 2, 0],
+              "A major scale is two four-note halves (tetrachords) joined by a step. Put its pieces in order, low to high:",
+            items: [
+              "Whole — the joining step",
+              "Whole, whole, half — upper tetrachord",
+              "Whole, whole, half — lower tetrachord",
+            ],
+            correctOrder: [2, 0, 1],
             explanation:
-              "W–W–H, then W, then W–W–H. Read as one line: whole, whole, half, whole, whole, whole, half.",
+              "Two identical tetrachords (W–W–H) joined by a whole step: (W W H) · W · (W W H) = W W H W W W H.",
           },
         },
       ],

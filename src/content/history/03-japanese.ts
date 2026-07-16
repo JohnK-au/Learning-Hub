@@ -4,7 +4,7 @@ export default defineModule({
   id: "hist-jp-classical",
   title: "Classical & feudal Japan",
   summary:
-    "Borrowed institutions, a stolen throne, and two centuries of deliberate isolation.",
+    "Aesthetic power, the drift from court to sword, and two centuries of deliberate isolation.",
   lessons: [
     {
       id: "hist-jp-heian-court",

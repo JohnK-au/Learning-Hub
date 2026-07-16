@@ -40,16 +40,35 @@ for (const topic of topics as Topic[]) {
       for (const lesson of mod.lessons) {
         requireUnique(lesson.id, `lesson ${mod.id}/${lesson.id}`);
         for (const block of lesson.blocks) {
-          if (block.kind === "activity" && block.activity.type === "ordering") {
-            const { items, correctOrder } = block.activity;
-            const valid =
+          if (block.kind !== "activity") continue;
+          const a = block.activity;
+          const at = `lesson "${lesson.id}" (${a.type})`;
+
+          if (a.type === "multiple-choice") {
+            // answerIndex must point at a real choice.
+            if (a.answerIndex >= a.choices.length) {
+              errors.push(
+                `${at}: answerIndex ${a.answerIndex} is out of range (only ${a.choices.length} choices)`,
+              );
+            }
+            // Duplicate choices make "the correct one" ambiguous.
+            if (new Set(a.choices).size !== a.choices.length) {
+              errors.push(`${at}: choices contain a duplicate`);
+            }
+          }
+
+          if (a.type === "ordering") {
+            const { items, correctOrder } = a;
+            const isPermutation =
               correctOrder.length === items.length &&
               new Set(correctOrder).size === items.length &&
               correctOrder.every((i) => i >= 0 && i < items.length);
-            if (!valid) {
-              errors.push(
-                `lesson "${lesson.id}": ordering activity correctOrder is not a permutation of items`,
-              );
+            if (!isPermutation) {
+              errors.push(`${at}: correctOrder is not a permutation of items`);
+            }
+            // Duplicate item labels make grading ambiguous (two "right" orders).
+            if (new Set(items).size !== items.length) {
+              errors.push(`${at}: ordering items contain a duplicate label`);
             }
           }
         }

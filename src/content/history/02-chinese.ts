@@ -47,39 +47,40 @@ export default defineModule({
     },
     {
       id: "hist-cn-han-exam",
-      title: "The Han invent the civil service",
+      title: "The Han build a bureaucracy on merit",
       estimatedMinutes: 4,
       blocks: [
         {
           kind: "prose",
-          body: "The Han inherited the Qin's machinery and softened its ideology, and in doing so built something genuinely novel: a bureaucracy staffed by **examination** rather than birth. In principle, a farmer's son who memorized the classics could govern a province. In practice, the leisure required to study kept the gentry firmly in charge — but the *principle* mattered, and it lasted until 1905.",
+          body: "The Han inherited the Qin's machinery and softened its ideology, and in doing so pushed something genuinely novel: recruiting officials by **merit** — through recommendation, an imperial academy, and early written examinations — rather than by birth. In principle, a farmer's son who mastered the classics could rise to govern a province. In practice, the leisure to study kept the gentry firmly on top — but the *principle* mattered. The fully standardized exam came centuries later under the Sui and Tang, yet the Han set the template that lasted until 1905.",
         },
         {
           kind: "callout",
           variant: "fact",
-          body: "When European powers built their modern civil services in the 1800s, they explicitly cited the Chinese examination system as the model. The idea of hiring officials by exam is a Han export.",
+          body: "When European powers built their modern civil services in the 1800s, they explicitly cited China's examination system as the model — the idea of hiring officials by exam is a Chinese export.",
         },
         {
           kind: "activity",
           activity: {
             type: "multiple-choice",
-            prompt: "What made the Han civil service radical for its time?",
+            prompt:
+              "What made the Han approach to officialdom radical for its time?",
             choices: [
-              "Officials were selected by examination rather than noble birth",
+              "Officials were recruited on merit rather than by noble birth",
               "It was staffed entirely by the military",
               "It abolished taxation",
             ],
             answerIndex: 0,
             explanation:
-              "Merit-by-exam — an idea Europe borrowed nearly two thousand years later.",
+              "Merit over birth — recommendation and early exams, the seed of a system Europe would echo nearly two millennia later.",
           },
         },
       ],
       reviewItems: [
         {
-          question: "What was the Han dynasty's most exported institution?",
+          question: "What was radical about how the Han recruited officials?",
           answer:
-            "The examination-based civil service — the model for modern bureaucracies.",
+            "By merit (recommendation and early examinations) rather than noble birth — the template for the later imperial exam and modern civil services.",
         },
       ],
     },
